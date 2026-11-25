@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.DSwinIR" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/studio_bg</item>
+        <item name="android:statusBarColor">@color/studio_bg</item>
+        <item name="android:navigationBarColor">@color/studio_surface</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+    <color name="studio_bg">#FF111316</color>
+    <color name="studio_surface">#FF191C21</color>
+</resources>
