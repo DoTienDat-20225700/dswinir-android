@@ -1,0 +1,5 @@
+Đã chạy detection độc lập.
+Chưa tính mAP: cần ảnh có nhãn chuẩn. Dùng ZIP và nút đo mAP; số box/confidence không thay thế mAP.
+Đã chạy segmentation độc lập.
+Chưa tính mAP: cần ảnh có nhãn chuẩn. Dùng ZIP và nút đo mAP; số box/confidence không thay thế mAP.
+UI YOLO PASS: detection and segmentation independently run on original/restored images

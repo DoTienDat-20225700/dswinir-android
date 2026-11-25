@@ -1,0 +1,58 @@
+{
+  "checkpoint": {
+    "config": {
+      "dim": 48,
+      "inp_channels": 3,
+      "out_channels": 3,
+      "num_blocks": [
+        4,
+        6,
+        6,
+        8
+      ],
+      "num_refinement_blocks": 4,
+      "heads": [
+        3,
+        6,
+        12,
+        12
+      ],
+      "kernel_size": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "ffn_expansion_factor": 2
+    },
+    "checkpoint": "weights/rain100l_official.pth",
+    "sha256": "02ab7327c7f6f11d0db0f5c657c31d59e1f6f4e6791bb77c6d52fbc214666645",
+    "size": 256,
+    "global_residual": true,
+    "note": "Default flags from official source; task coverage must be verified from checkpoint provenance."
+  },
+  "tf": [
+    {
+      "max_abs": 3.7550926208496094e-06,
+      "rmse": 3.4456101616342494e-07
+    },
+    {
+      "max_abs": 1.9669532775878906e-06,
+      "rmse": 2.9698207981709857e-07
+    }
+  ],
+  "tflite": [
+    {
+      "max_abs": 2.9802322387695312e-06,
+      "rmse": 4.05353659971297e-07
+    },
+    {
+      "max_abs": 2.086162567138672e-06,
+      "rmse": 3.42405968467574e-07
+    }
+  ],
+  "tolerance": 0.001,
+  "tflite_sha256": "3db3cbcca7a8a80d74a6c3ffd674e5f69402ef3adec365355af9024aa0a0be26",
+  "original_cuda_parity": "NOT_VERIFIED",
+  "quality_on_test_set": "NOT_VERIFIED"
+}

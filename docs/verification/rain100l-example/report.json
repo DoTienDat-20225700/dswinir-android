@@ -1,0 +1,12 @@
+{
+  "restoration": {
+    "requested": "CPU",
+    "executed": "CPU",
+    "gpuCoverage": "CPU_ONLY",
+    "degradation": "derain",
+    "model_sha256": "3db3cbcca7a8a80d74a6c3ffd674e5f69402ef3adec365355af9024aa0a0be26",
+    "width": 481,
+    "height": 321,
+    "end_to_end_ms": 143829.737478
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "checkpoint": {
+    "checkpoint": "yolo11n.pt",
+    "sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+    "ultralytics": "8.3.221",
+    "torch": "2.2.2",
+    "size": 640,
+    "outputs": 1,
+    "format": "normalized xywh, raw outputs, nms=False, COCO80"
+  },
+  "onnx_max_abs": [
+    [
+      3.7550926208496094e-06
+    ],
+    [
+      7.033348083496094e-06
+    ]
+  ],
+  "tflite_max_abs": [
+    [
+      4.76837158203125e-06
+    ],
+    [
+      1.1086463928222656e-05
+    ]
+  ],
+  "tolerance": 0.001,
+  "tf_version": "2.15.0",
+  "tflite_sha256": "60b1108cee2a67e80d08872ff215cf58b7737e82e9278a9d0ee6a6e2f5a1dddc",
+  "model_bytes": 10752096,
+  "quality_mAP": "NOT_EVALUATED"
+}

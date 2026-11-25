@@ -1,0 +1,7 @@
+{
+  "degraded_rgb_psnr_db": 25.97249871950766,
+  "restored_rgb_psnr_db": 36.73524278794075,
+  "scope": "one Rain100L test image restored through Android app UI; RGB uint8 PSNR sanity only, not mAP or paper average",
+  "tile": 256,
+  "tiles": 4
+}

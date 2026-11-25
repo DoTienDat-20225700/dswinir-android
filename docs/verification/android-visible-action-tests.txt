@@ -1,0 +1,8 @@
+
+vn.edu.dswinir.ActionReadinessDeviceTest:..
+
+Time: 9.356
+
+OK (2 tests)
+
+

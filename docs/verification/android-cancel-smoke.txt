@@ -1,0 +1,14 @@
+Performing Streamed Install
+Success
+
+Starting: Intent { cmp=vn.edu.dswinir/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: vn.edu.dswinir/.MainActivity
+TotalTime: 1572
+WaitTime: 1578
+Complete
+
+Real model initialized and first CPU warm-up invocation running
+PASS: stopped native inference and controls enabled in 1.56 seconds
+PASS: all original saved images/report preserved; no partial benchmark published

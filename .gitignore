@@ -1,0 +1,46 @@
+venv/
+__pycache__/
+*.pyc
+.gradle/
+.gradle-user-home/
+android/**/build/
+android/local.properties
+.DS_Store
+.export-deps/
+convert/prepared*/
+.yolo-deps/
+.yolo-config/
+convert/yolo/
+.android-runtime/
+data/
+deliverables/
+
+# Downloaded models, training weights and generated conversion outputs
+weights/
+repo/
+convert/out/
+yolo_out/
+yolo_sample/
+*.pth
+*.pt
+*.onnx
+*.tflite
+*.npz
+*.npy
+*.apk
+*.aab
+*.zip
+*.log
+*.sarif
+# Small artificial fixtures are source-controlled for Android component tests.
+!android/app/src/androidTest/assets/*.tflite
+
+# Local agent/IDE state and credentials
+.agent/
+.claude/
+.idea/
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks

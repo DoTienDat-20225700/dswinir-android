@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "description": "SCHEMA EXAMPLE ONLY. Replace paths and annotations with real test images and manual ground truth before packing.",
+  "images": [
+    {
+      "id": "rain100l-test-001",
+      "degradation": "derain",
+      "source_dataset": "Rain100L",
+      "source_split": "test",
+      "input": "images/rain-001.png",
+      "annotations": [
+        {
+          "class_id": 0,
+          "bbox": [10, 20, 60, 120],
+          "polygon": [10, 20, 60, 20, 60, 120, 10, 120]
+        }
+      ]
+    }
+  ]
+}

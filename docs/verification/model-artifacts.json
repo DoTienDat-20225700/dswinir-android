@@ -1,0 +1,17 @@
+[
+  {
+    "file": "convert/prepared256/dswinir_256_fp32.tflite",
+    "bytes": 221593464,
+    "sha256": "3db3cbcca7a8a80d74a6c3ffd674e5f69402ef3adec365355af9024aa0a0be26"
+  },
+  {
+    "file": "convert/yolo/detection/yolo11n_fp32.tflite",
+    "bytes": 10752096,
+    "sha256": "60b1108cee2a67e80d08872ff215cf58b7737e82e9278a9d0ee6a6e2f5a1dddc"
+  },
+  {
+    "file": "convert/yolo/segmentation/yolo11n-seg_fp32.tflite",
+    "bytes": 11772072,
+    "sha256": "d37eb221002492cc5f2cde6019f2605f259968d082dd24131177c3ac346f6d59"
+  }
+]

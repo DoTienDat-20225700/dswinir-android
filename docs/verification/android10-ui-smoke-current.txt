@@ -1,0 +1,7 @@
+Đang khôi phục derain…
+Đang khôi phục derain · đang xử lý 1/4 tile.
+Đang khôi phục derain · đang xử lý 2/4 tile.
+Đang khôi phục derain · đang xử lý 3/4 tile.
+Đang khôi phục derain · đang xử lý 4/4 tile.
+Đã khôi phục 481×321 trong 307.3 giây.
+UI RESTORE PASS: image restored, YOLO action enabled

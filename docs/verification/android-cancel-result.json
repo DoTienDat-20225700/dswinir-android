@@ -1,0 +1,13 @@
+{
+  "device": "Android10 API29 x86_64, 2 cores",
+  "test": "cancel first warmup during real DSwinIR native CPU inference",
+  "returned_controls_within_s": 1.5552355260006152,
+  "observation_includes_ui_dump_latency": true,
+  "saved_files_preserved": true,
+  "saved_file_sha256": {
+    "input.png": "b7dbb446b8138fff23bf396476abb5be801435568f099669ed4dac21f021691e",
+    "output.png": "0c4551e6f72af0bac53d739b1ed685604ea06f09fb8cd81665eaa7a223e2fa22",
+    "report.json": "a7f12b9dedca19568fe8fb4751626a81da3a99f4cfa7e05e876b8added95248f"
+  },
+  "complete_5_plus_50_benchmark": false
+}

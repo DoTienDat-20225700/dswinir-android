@@ -1,0 +1,214 @@
+I/lowmemorykiller( 1764): Using psi monitors for memory pressure detection
+I/livelock( 1845): ro.llk.blacklist.process.stack=llkd,lmkd.llkd,apexd,ueventd,keystore,init
+I/livelock( 1845): ro.llk.blacklist.process=[watchdog/1],watchdogd,llkd,lmkd,[khungtaskd],[kthreadd],init,[watchdogd/0],2,[watchdogd],1845,1,0
+I/lowmemorykiller( 1764): lmkd data connection established
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 (has extras) } to com.google.android.packageinstaller/com.android.packageinstaller.PackageInstalledReceiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 (has extras) } to com.android.musicfx/.Compatibility$Receiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 (has extras) } to com.google.android.gms/.games.chimera.GamesSystemBroadcastReceiverProxy
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 (has extras) } to com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 (has extras) } to com.google.android.ims/.receivers.RcsAutoStartReceiver
+W/GCM     ( 2070): Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+W/GCM     ( 2070): Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+I/ChromeSync( 2459): [Sync,SyncIntentOperation] Handling the intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir flg=0x4000010 cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+I/FontLog ( 2459): Package vn.edu.dswinir has no metadata [CONTEXT service_id=132 ]
+I/ChromeSync( 2459): [Persistence,AffiliationManager] One of affiliation or grouping data for android://OSoa7IaGL343O3QBTiGang73yMRwYNzVD0XXkjpTir_Xyw7DXE8Hs1TLBmKiLskdZEqT7vzwnnXA4bvc5GvoKQ==@vn.edu.dswinir/ was not found. Marking affiliation data as stale...
+V/BackupManagerService( 1933): restoreAtInstall pkg=vn.edu.dswinir.test token=2 restoreSet=0
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 (has extras) } to com.google.android.packageinstaller/com.android.packageinstaller.PackageInstalledReceiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 (has extras) } to com.android.musicfx/.Compatibility$Receiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 (has extras) } to com.google.android.gms/.games.chimera.GamesSystemBroadcastReceiverProxy
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 (has extras) } to com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher
+W/BroadcastQueue( 1933): Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 (has extras) } to com.google.android.ims/.receivers.RcsAutoStartReceiver
+W/GCM     ( 2070): Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+W/GCM     ( 2070): Unexpected forwarded intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) }
+I/ChromeSync( 2459): [Sync,SyncIntentOperation] Handling the intent: Intent { act=android.intent.action.PACKAGE_ADDED dat=package:vn.edu.dswinir.test flg=0x4000010 cmp=com.google.android.gms/.chimera.GmsIntentOperationService (has extras) }.
+I/FontLog ( 2459): Package vn.edu.dswinir.test has no metadata [CONTEXT service_id=132 ]
+I/ChromeSync( 2459): [Persistence,AffiliationManager] One of affiliation or grouping data for android://OSoa7IaGL343O3QBTiGang73yMRwYNzVD0XXkjpTir_Xyw7DXE8Hs1TLBmKiLskdZEqT7vzwnnXA4bvc5GvoKQ==@vn.edu.dswinir.test/ was not found. Marking affiliation data as stale...
+I/ActivityManager( 1933): Force stopping vn.edu.dswinir appid=10146 user=0: start instr
+D/Zygote  ( 1692): Forked child process 6514
+I/vn.edu.dswinir( 6514): Late-enabling -Xcheck:jni
+I/ActivityManager( 1933): Start proc 6514:vn.edu.dswinir/u0a146 for added application vn.edu.dswinir
+E/vn.edu.dswinir( 6514): Unknown bits set in runtime_flags: 0x8000
+W/vn.edu.dswinir( 6514): Unexpected CPU variant for X86 using defaults: x86_64
+W/ActivityThread( 6514): Package uses different ABI(s) than its instrumentation: package[vn.edu.dswinir]: x86_64, null instrumentation[vn.edu.dswinir.test]: null, null
+W/vn.edu.dswinir( 6514): Accessing hidden method Landroid/app/Instrumentation;->execStartActivity(Landroid/content/Context;Landroid/os/IBinder;Landroid/os/IBinder;Landroid/app/Activity;Landroid/content/Intent;ILandroid/os/Bundle;)Landroid/app/Instrumentation$ActivityResult; (greylist, linking, allowed)
+W/vn.edu.dswinir( 6514): Accessing hidden method Landroid/app/Instrumentation;->execStartActivity(Landroid/content/Context;Landroid/os/IBinder;Landroid/os/IBinder;Ljava/lang/String;Landroid/content/Intent;ILandroid/os/Bundle;)Landroid/app/Instrumentation$ActivityResult; (greylist, linking, allowed)
+I/AndroidJUnitRunner( 6514): newApplication android.app.Application
+I/AndroidJUnitRunner( 6514): onCreate Bundle[mParcelledData.dataSize=140]
+D/AndroidJUnitRunner( 6514): Use the raw file system for managing file I/O.
+V/TestEventClient( 6514): No service name argument was given (testDiscoveryService, testRunEventService or orchestratorService)
+D/AndroidJUnitRunner( 6514): onStart is called.
+D/TestRequestBuilder( 6514): Using class path scanning to discover tests
+I/TestRequestBuilder( 6514): Scanning classpath to find tests in paths [/data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/base.apk]
+W/vn.edu.dswinir( 6514): Opening an oat file without a class loader. Are you using the deprecated DexFile APIs?
+W/ScanningTestLoader( 6514): Could not load class: android.crypto.hpke.AeadParameterSpec
+W/ScanningTestLoader( 6514): java.lang.ClassNotFoundException: android.crypto.hpke.AeadParameterSpec
+W/ScanningTestLoader( 6514): 	at java.lang.Class.classForName(Native Method)
+W/ScanningTestLoader( 6514): 	at java.lang.Class.forName(Class.java:454)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.ScanningTestLoader.doCreateRunner(ScanningTestLoader.java:45)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.TestLoader.getRunnersFor(TestLoader.java:64)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.TestRequestBuilder.build(TestRequestBuilder.java:842)
+W/ScanningTestLoader( 6514): 	at androidx.test.runner.AndroidJUnitRunner.buildRequest(AndroidJUnitRunner.java:663)
+W/ScanningTestLoader( 6514): 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:437)
+W/ScanningTestLoader( 6514): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2189)
+W/ScanningTestLoader( 6514): Caused by: java.lang.ClassNotFoundException: android.crypto.hpke.AeadParameterSpec
+W/ScanningTestLoader( 6514): 	at java.lang.VMClassLoader.findLoadedClass(Native Method)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.findLoadedClass(ClassLoader.java:738)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:363)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Ljava/security/spec/NamedParameterSpec;
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Caused by: java.lang.ClassNotFoundException: Didn't find class "java.security.spec.NamedParameterSpec" on path: DexPathList[[zip file "/data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/base.apk", zip file "/data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/base.apk"],nativeLibraryDirectories=[/data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/lib/x86_64, /data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/lib/x86_64, /data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/base.apk!/lib/x86_64, /data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/base.apk!/lib/x86_64, /system/lib64, /system/product/lib64]]
+W/ScanningTestLoader( 6514): 	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:196)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:379)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Could not load class: android.crypto.hpke.KdfParameterSpec
+W/ScanningTestLoader( 6514): java.lang.ClassNotFoundException: android.crypto.hpke.KdfParameterSpec
+W/ScanningTestLoader( 6514): 	at java.lang.Class.classForName(Native Method)
+W/ScanningTestLoader( 6514): 	at java.lang.Class.forName(Class.java:454)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.ScanningTestLoader.doCreateRunner(ScanningTestLoader.java:45)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.TestLoader.getRunnersFor(TestLoader.java:64)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.TestRequestBuilder.build(TestRequestBuilder.java:842)
+W/ScanningTestLoader( 6514): 	at androidx.test.runner.AndroidJUnitRunner.buildRequest(AndroidJUnitRunner.java:663)
+W/ScanningTestLoader( 6514): 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:437)
+W/ScanningTestLoader( 6514): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2189)
+W/ScanningTestLoader( 6514): Caused by: java.lang.ClassNotFoundException: android.crypto.hpke.KdfParameterSpec
+W/ScanningTestLoader( 6514): 	at java.lang.VMClassLoader.findLoadedClass(Native Method)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.findLoadedClass(ClassLoader.java:738)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:363)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Ljava/security/spec/NamedParameterSpec;
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Caused by: java.lang.ClassNotFoundException: Didn't find class "java.security.spec.NamedParameterSpec" on path: DexPathList[[zip file "/data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/base.apk", zip file "/data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/base.apk"],nativeLibraryDirectories=[/data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/lib/x86_64, /data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/lib/x86_64, /data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/base.apk!/lib/x86_64, /data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/base.apk!/lib/x86_64, /system/lib64, /system/product/lib64]]
+W/ScanningTestLoader( 6514): 	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:196)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:379)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Could not load class: android.crypto.hpke.KemParameterSpec
+W/ScanningTestLoader( 6514): java.lang.ClassNotFoundException: android.crypto.hpke.KemParameterSpec
+W/ScanningTestLoader( 6514): 	at java.lang.Class.classForName(Native Method)
+W/ScanningTestLoader( 6514): 	at java.lang.Class.forName(Class.java:454)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.ScanningTestLoader.doCreateRunner(ScanningTestLoader.java:45)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.TestLoader.getRunnersFor(TestLoader.java:64)
+W/ScanningTestLoader( 6514): 	at androidx.test.internal.runner.TestRequestBuilder.build(TestRequestBuilder.java:842)
+W/ScanningTestLoader( 6514): 	at androidx.test.runner.AndroidJUnitRunner.buildRequest(AndroidJUnitRunner.java:663)
+W/ScanningTestLoader( 6514): 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:437)
+W/ScanningTestLoader( 6514): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2189)
+W/ScanningTestLoader( 6514): Caused by: java.lang.ClassNotFoundException: android.crypto.hpke.KemParameterSpec
+W/ScanningTestLoader( 6514): 	at java.lang.VMClassLoader.findLoadedClass(Native Method)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.findLoadedClass(ClassLoader.java:738)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:363)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Ljava/security/spec/NamedParameterSpec;
+W/ScanningTestLoader( 6514): 	... 8 more
+W/ScanningTestLoader( 6514): Caused by: java.lang.ClassNotFoundException: Didn't find class "java.security.spec.NamedParameterSpec" on path: DexPathList[[zip file "/data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/base.apk", zip file "/data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/base.apk"],nativeLibraryDirectories=[/data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/lib/x86_64, /data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/lib/x86_64, /data/app/vn.edu.dswinir.test-BXxAbEopmeYEjdkyHorepw==/base.apk!/lib/x86_64, /data/app/vn.edu.dswinir-xPM1LTSsVcsu2I-yXWxo8w==/base.apk!/lib/x86_64, /system/lib64, /system/product/lib64]]
+W/ScanningTestLoader( 6514): 	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:196)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:379)
+W/ScanningTestLoader( 6514): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:312)
+W/ScanningTestLoader( 6514): 	... 8 more
+I/TestRunner( 6514): run started: 5 tests
+I/TestRunner( 6514): started: realModelsMatchTorchFixturesOnAndroid(vn.edu.dswinir.ModelParityDeviceTest)
+I/TensorFlowLite( 6514): Loaded native library: tensorflowlite_jni
+I/TensorFlowLite( 6514): Didn't load native library: tensorflowlite_jni_gms_client
+I/tflite  ( 6514): Initialized TensorFlow Lite runtime.
+I/tflite  ( 6514): Created TensorFlow Lite XNNPACK delegate for CPU.
+I/tflite  ( 6514): Replacing 26785 out of 35189 node(s) with delegate (TfLiteXNNPackDelegate) node, yielding 353 partitions for subgraph 0.
+E/lowmemorykiller( 1764): Kill 'com.google.process.gapps' (6129), uid 10128, oom_adj 975 to free 77480kB
+I/lowmemorykiller( 1764): Reclaimed 77480kB, cache(297140kB) and free(66876kB)-reserved(86132kB) below min(322560kB) for oom_adj 950
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.gm' (4918), uid 10140, oom_adj 975 to free 81412kB
+I/lowmemorykiller( 1764): Reclaimed 81412kB, cache(271084kB) and free(52776kB)-reserved(86132kB) below min(322560kB) for oom_adj 950
+I/lowmemorykiller( 1764): 6 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.gms.ui' (6172), uid 10118, oom_adj 965 to free 96684kB
+I/lowmemorykiller( 1764): Reclaimed 96684kB, cache(233196kB) and free(52816kB)-reserved(86132kB) below min(322560kB) for oom_adj 950
+I/lowmemorykiller( 1764): 1 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.apps.pixelmigrate' (5707), uid 10116, oom_adj 965 to free 70560kB
+I/lowmemorykiller( 1764): Reclaimed 70560kB, cache(218688kB) and free(53888kB)-reserved(86132kB) below min(221184kB) for oom_adj 900
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.android.providers.calendar' (6264), uid 10060, oom_adj 955 to free 58552kB
+I/lowmemorykiller( 1764): Reclaimed 58552kB, cache(196120kB) and free(52316kB)-reserved(86132kB) below min(221184kB) for oom_adj 900
+I/lowmemorykiller( 1764): 4 memory pressure events were skipped after a kill!
+W/lowmemorykiller( 1764): Failed to get t_pid for '0' of pid(5736)
+E/lowmemorykiller( 1764): Kill 'com.google.android.apps.messaging:rcs' (5736), uid 10131, oom_adj 955 to free 36140kB
+I/lowmemorykiller( 1764): Reclaimed 36140kB, cache(171168kB) and free(54264kB)-reserved(86132kB) below min(221184kB) for oom_adj 900
+I/lowmemorykiller( 1764): 2 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.partnersetup' (5082), uid 10117, oom_adj 995 to free 55172kB
+I/lowmemorykiller( 1764): Reclaimed 55172kB, cache(149048kB) and free(52844kB)-reserved(86132kB) below min(221184kB) for oom_adj 900
+I/lowmemorykiller( 1764): 2 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'android.process.media' (3288), uid 10056, oom_adj 985 to free 74828kB
+I/lowmemorykiller( 1764): Reclaimed 74828kB, cache(133724kB) and free(53116kB)-reserved(86132kB) below min(221184kB) for oom_adj 900
+I/lowmemorykiller( 1764): 4 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.apps.wallpaper' (6287), uid 10105, oom_adj 975 to free 45452kB
+I/lowmemorykiller( 1764): Reclaimed 45452kB, cache(106400kB) and free(52820kB)-reserved(86132kB) below min(110592kB) for oom_adj 200
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.gms:car' (6319), uid 10118, oom_adj 965 to free 55400kB
+I/lowmemorykiller( 1764): Reclaimed 55400kB, cache(88028kB) and free(52808kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): 2 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.apps.messaging' (3771), uid 10131, oom_adj 955 to free 31800kB
+I/lowmemorykiller( 1764): Reclaimed 31800kB, cache(73732kB) and free(53500kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.gms.unstable' (6370), uid 10118, oom_adj 945 to free 53156kB
+I/lowmemorykiller( 1764): Reclaimed 53156kB, cache(59204kB) and free(52516kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'android.process.acore' (6104), uid 10054, oom_adj 935 to free 47468kB
+I/lowmemorykiller( 1764): Reclaimed 47468kB, cache(51412kB) and free(53288kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+W/lowmemorykiller( 1764): Failed to open /proc/3771/oom_score_adj; errno=2: process 3771 might have been killed
+I/lowmemorykiller( 1764): 4 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.process.gapps' (3038), uid 10118, oom_adj 925 to free 40332kB
+I/lowmemorykiller( 1764): Reclaimed 40332kB, cache(52396kB) and free(64780kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.packageinstaller' (6424), uid 10073, oom_adj 915 to free 32212kB
+I/lowmemorykiller( 1764): Reclaimed 32212kB, cache(54160kB) and free(81060kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.permissioncontroller' (2106), uid 10074, oom_adj 905 to free 41056kB
+I/lowmemorykiller( 1764): Reclaimed 41056kB, cache(57604kB) and free(79768kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 2 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.process.gservices' (2917), uid 10118, oom_adj 700 to free 39872kB
+I/lowmemorykiller( 1764): Reclaimed 39872kB, cache(54280kB) and free(95416kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 4 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.ims' (3598), uid 10120, oom_adj 500 to free 21888kB
+I/lowmemorykiller( 1764): Reclaimed 21888kB, cache(61124kB) and free(91576kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.android.dialer' (2732), uid 10107, oom_adj 250 to free 36680kB
+I/lowmemorykiller( 1764): Reclaimed 36680kB, cache(68500kB) and free(110612kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 4 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.inputmethod.latin' (2491), uid 10132, oom_adj 200 to free 44908kB
+I/lowmemorykiller( 1764): Reclaimed 44908kB, cache(79216kB) and free(106248kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): 4 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.ext.services' (2655), uid 10070, oom_adj 100 to free 33748kB
+I/lowmemorykiller( 1764): Reclaimed 33748kB, cache(87812kB) and free(123568kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): 4 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.gms' (2459), uid 10118, oom_adj 500 to free 73744kB
+I/lowmemorykiller( 1764): Reclaimed 73744kB, cache(92128kB) and free(68292kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): Suppressed 52 failed kill reports
+I/lowmemorykiller( 1764): 2 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.process.gservices' (6538), uid 10118, oom_adj 905 to free 102916kB
+I/lowmemorykiller( 1764): Reclaimed 102916kB, cache(113008kB) and free(78820kB)-reserved(86132kB) below min(129024kB) for oom_adj 250
+I/lowmemorykiller( 1764): Suppressed 7 failed kill reports
+I/lowmemorykiller( 1764): 3 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.gms.persistent' (2070), uid 10118, oom_adj 100 to free 71720kB
+I/lowmemorykiller( 1764): Reclaimed 71720kB, cache(89076kB) and free(90428kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): Suppressed 11 failed kill reports
+I/lowmemorykiller( 1764): 1 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.android.smspush' (2982), uid 10087, oom_adj 100 to free 26180kB
+I/lowmemorykiller( 1764): Reclaimed 26180kB, cache(86688kB) and free(108928kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): 2 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'com.google.android.googlequicksearchbox:interactor' (2808), uid 10122, oom_adj 100 to free 9844kB
+I/lowmemorykiller( 1764): Reclaimed 9844kB, cache(89204kB) and free(57288kB)-reserved(86132kB) below min(92160kB) for oom_adj 100
+I/lowmemorykiller( 1764): Suppressed 20 failed kill reports
+I/lowmemorykiller( 1764): 5 memory pressure events were skipped after a kill!
+E/lowmemorykiller( 1764): Kill 'vn.edu.dswinir' (6514), uid 10146, oom_adj 0 to free 1350632kB
+I/lowmemorykiller( 1764): Reclaimed 1350632kB, cache(71804kB) and free(52312kB)-reserved(86132kB) below min(73728kB) for oom_adj 0
+I/lowmemorykiller( 1764): 9 memory pressure events were skipped after a kill!
+I/ActivityManager( 1933): Process vn.edu.dswinir (pid 6514) has died: fore FGS 
+W/ActivityManager( 1933): Crash of app vn.edu.dswinir running instrumentation ComponentInfo{vn.edu.dswinir.test/androidx.test.runner.AndroidJUnitRunner}
+I/ActivityManager( 1933): Force stopping vn.edu.dswinir appid=10146 user=0: finished inst
+I/Zygote  ( 1692): Process 6514 exited due to signal 9 (Killed)
+I/libprocessgroup( 1933): Successfully killed process cgroup uid 10146 pid 6514 in 41ms

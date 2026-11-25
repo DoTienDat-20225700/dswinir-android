@@ -1,0 +1,80 @@
+[
+  {
+    "file": "weights/n15.pth",
+    "sha256": "cd5714c7e5efad1f22516a679e4da5b254310c0178eea46d30842523e653aab5",
+    "kind": "image_results_zip",
+    "first_entries": [
+      "Noisy25/",
+      "Noisy25/0000.png",
+      "Noisy25/0001.png"
+    ]
+  },
+  {
+    "file": "weights/snow.pth",
+    "sha256": "899185d06d4885fecdeb4924c56c82050ef8629336f97383b9d4593820bedcbe",
+    "kind": "image_results_zip",
+    "first_entries": [
+      "snow/",
+      "snow/401.png",
+      "snow/402.png"
+    ]
+  },
+  {
+    "file": "weights/three_task.pth",
+    "sha256": "ae6907aaa287cbb31ad3e76d9d6594070aaa15bd902edf7b167082e057d73082",
+    "kind": "image_results_zip",
+    "first_entries": [
+      "Rain100L/",
+      "Rain100L/rain-001.png",
+      "Rain100L/rain-002.png"
+    ]
+  },
+  {
+    "file": "weights/w_haze.pth",
+    "sha256": "95fbfcab2513080b9ebea88eb219858938d83ddbb819d6c5d99ae93586568929",
+    "kind": "image_results_zip",
+    "first_entries": [
+      "SOTS/",
+      "SOTS/0001_0.8_0.2.png",
+      "SOTS/0002_0.8_0.08.png"
+    ]
+  },
+  {
+    "file": "weights/w_n50.pth",
+    "sha256": "4bf12dbd6b34a37f4451cf5389f110843db0a83e9bfaa64d6b70fbd01022f3cc",
+    "kind": "image_results_zip",
+    "first_entries": [
+      "Noisy50/",
+      "Noisy50/0000.png",
+      "Noisy50/0001.png"
+    ]
+  },
+  {
+    "file": "weights/w_rain100l_result.pth",
+    "sha256": "02ab7327c7f6f11d0db0f5c657c31d59e1f6f4e6791bb77c6d52fbc214666645",
+    "kind": "pytorch_checkpoint",
+    "first_entries": [
+      "archive/data.pkl",
+      "archive/byteorder",
+      "archive/data/0"
+    ]
+  },
+  {
+    "file": "weights/w_rain100l_single.pth",
+    "sha256": "5ae8aa9c7646908aedbe1ec18c8861defd0d311497fc6913a3bf5905ac61e488",
+    "kind": "image_results_zip",
+    "first_entries": [
+      "Noisy15/",
+      "Noisy15/0000.png",
+      "Noisy15/0001.png"
+    ]
+  },
+  {
+    "file": "weights/rain100l_official.pth",
+    "sha256": "02ab7327c7f6f11d0db0f5c657c31d59e1f6f4e6791bb77c6d52fbc214666645",
+    "kind": "pytorch_checkpoint",
+    "source": "https://drive.google.com/file/d/1yQcnuRUepg9NW5DVh3MmBFlA-H1r7y7E/view",
+    "coverage": "Rain100L single-task",
+    "strict_load": "PASS"
+  }
+]

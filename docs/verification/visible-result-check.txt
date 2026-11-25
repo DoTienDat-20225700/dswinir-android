@@ -1,0 +1,8 @@
+Android 10 / API29
+Original user restoration: CPU, 481x321, 926586.494 ms, one whole-image run (not 5+50 benchmark).
+Original output and report preserved in user-restoration-result.zip.
+New APK: saved original/restored image pair and report reopened from private last-session directory.
+PASS: restored ImageView visible at [72,512][648,896].
+PASS: persistent start button visible and enabled at [36,1148][684,1248].
+No restoration model or numerical changes in this fix.
+PASS: 2 Android UI tests (start action stays visible; labelled dataset prerequisites).

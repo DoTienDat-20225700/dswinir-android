@@ -1,0 +1,51 @@
+{
+  "android_api": 29,
+  "device": "Android SDK built for x86_64",
+  "scope": "numerical parity on synthetic Torch fixtures; not quality\/mAP or 5+50 benchmark",
+  "cases": [
+    {
+      "name": "restoration-0",
+      "max_abs": [
+        2.9802322387695312E-6
+      ],
+      "single_invoke_ms": 43192.916004
+    },
+    {
+      "name": "restoration-1",
+      "max_abs": [
+        1.8477439880371094E-6
+      ],
+      "single_invoke_ms": 36583.862112
+    },
+    {
+      "name": "detection-0",
+      "max_abs": [
+        3.2186508178710938E-6
+      ],
+      "single_invoke_ms": 302.280905
+    },
+    {
+      "name": "detection-1",
+      "max_abs": [
+        9.298324584960938E-6
+      ],
+      "single_invoke_ms": 263.691294
+    },
+    {
+      "name": "segmentation-0",
+      "max_abs": [
+        1.0512769222259521E-5,
+        2.3365020751953125E-5
+      ],
+      "single_invoke_ms": 377.404114
+    },
+    {
+      "name": "segmentation-1",
+      "max_abs": [
+        1.8849968910217285E-5,
+        4.661083221435547E-5
+      ],
+      "single_invoke_ms": 428.415126
+    }
+  ]
+}

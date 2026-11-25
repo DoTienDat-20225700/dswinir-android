@@ -1,0 +1,8 @@
+test_boundary_and_dilation_against_scalar_reference (test_model_semantics.SemanticsTest) ... ok
+test_layernorm_channels (test_model_semantics.SemanticsTest) ... ok
+test_offset_coordinates_preserve_channels (test_model_semantics.SemanticsTest) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.231s
+
+OK
