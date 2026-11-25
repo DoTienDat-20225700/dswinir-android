@@ -10,11 +10,11 @@ FILES={
  'testset-15-unlabelled.zip':'deliverables/testset-15-unlabelled.zip',
  'README.txt':'deliverables/README.txt',
 }
-for source in (ROOT/'docs/verification').glob('*'):
- if source.suffix in ['.json','.png','.txt','.zip']: FILES['reports/'+source.name]=str(source.relative_to(ROOT))
-for source in (ROOT/'docs/verification/rain100l-example').glob('*'):
- if source.is_file(): FILES['example/'+source.name]=str(source.relative_to(ROOT))
-for name in ['README.md','model.py','natten_pure.py','validate_model.py','download_weights.sh','docs/implementation-status.md','docs/testset-format.json']:
+evidence=ROOT/'docs/verification'
+for source in evidence.rglob('*'):
+ if source.is_file() and source.suffix in ['.json','.png','.txt','.md']:
+  FILES['reports/'+str(source.relative_to(evidence))]=str(source.relative_to(ROOT))
+for name in ['.gitignore','.gitattributes','THIRD_PARTY.md','README.md','model.py','natten_pure.py','validate_model.py','download_weights.sh','docs/implementation-status.md','docs/testset-format.json']:
  FILES['source/'+name]=name
 for folder in ['tools','tests','android/app/src','android/gradle/wrapper']:
  for f in (ROOT/folder).rglob('*'):
@@ -28,5 +28,10 @@ with ZipFile(path,'w',compression=ZIP_DEFLATED,compresslevel=4) as z:
  for dest,source in FILES.items():
   f=ROOT/source
   if not f.is_file(): raise FileNotFoundError(f)
-  z.write(f,dest,compress_type=ZIP_STORED if f.suffix in ['.zip','.png'] else ZIP_DEFLATED)
+  if dest=='source/README.md':
+   z.writestr(dest,f.read_text().replace('(docs/verification/','(../reports/'))
+  elif dest=='source/docs/implementation-status.md':
+   z.writestr(dest,f.read_text().replace('(verification/','(../../reports/'))
+  else:
+   z.write(f,dest,compress_type=ZIP_STORED if f.suffix in ['.zip','.png'] else ZIP_DEFLATED)
 print(path,'bytes',path.stat().st_size)

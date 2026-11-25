@@ -44,3 +44,6 @@ yolo_sample/
 !.env.example
 *.keystore
 *.jks
+
+# Archived experiments and superseded verification artifacts
+.local-archive/

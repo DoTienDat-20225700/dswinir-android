@@ -6,7 +6,7 @@
 
 ## Nội dung repository public
 
-Repository chứa mã nguồn Android, công cụ chuyển đổi, các mô hình giả nhỏ dùng cho kiểm thử thành phần và báo cáo kiểm chứng. **Không chứa trọng số đã huấn luyện, model TFLite thật, ảnh test gốc, APK hoặc bộ máy ảo**. Các đường dẫn tới những tệp này bên dưới là đường dẫn đầu ra trên máy sau khi tải/chuyển đổi, không phải tệp đã đưa lên GitHub.
+Repository chứa mã nguồn Android, công cụ chuyển đổi, các mô hình giả nhỏ dùng cho kiểm thử thành phần và báo cáo kiểm chứng. **Không chứa trọng số đã huấn luyện, model TFLite thật, bộ ảnh test đầy đủ, APK hoặc bộ máy ảo**. Các đường dẫn tới những tệp này bên dưới là đường dẫn đầu ra trên máy sau khi tải/chuyển đổi, không phải tệp đã đưa lên GitHub.
 
 - Build app: cài Java 17, Android SDK 37; đặt `ANDROID_HOME` trỏ tới SDK rồi mở thư mục `android/` bằng Android Studio hoặc dùng lệnh bên dưới.
 - Tải checkpoint Rain100L: cài `gdown` và PyTorch rồi chạy `sh download_weights.sh`. Chuyển đổi theo mục **Chuyển đổi và kiểm chứng** hoặc notebook Colab.
@@ -37,14 +37,14 @@ cd android
 ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug
 ```
 
-APK: [app-debug.apk](android/app/build/outputs/apk/debug/app-debug.apk).
+APK: `android/app/build/outputs/apk/debug/app-debug.apk`.
 
 | File để nhập vào app | Tác dụng |
 |---|---|
-| [dswinir_256_fp32.tflite](convert/prepared256/dswinir_256_fp32.tflite) | Khôi phục RGB, FP32, 256×256; checkpoint Rain100L single-task |
-| [yolo11n_fp32.tflite](convert/yolo/detection/yolo11n_fp32.tflite) | COCO80 object detection, input 640×640 |
-| [yolo11n-seg_fp32.tflite](convert/yolo/segmentation/yolo11n-seg_fp32.tflite) | COCO80 instance segmentation, input 640×640 |
-| [testset-15-unlabelled.zip](deliverables/testset-15-unlabelled.zip) | Ba ảnh test mỗi suy thoái, chưa có nhãn object |
+| `convert/prepared256/dswinir_256_fp32.tflite` | Khôi phục RGB, FP32, 256×256; checkpoint Rain100L single-task |
+| `convert/yolo/detection/yolo11n_fp32.tflite` | COCO80 object detection, input 640×640 |
+| `convert/yolo/segmentation/yolo11n-seg_fp32.tflite` | COCO80 instance segmentation, input 640×640 |
+| `deliverables/testset-15-unlabelled.zip` | Ba ảnh test mỗi suy thoái, chưa có nhãn object |
 
 Chép các file sang điện thoại rồi nhập bằng các nút tương ứng. Chọn ảnh → Khôi phục CPU/GPU → xem ảnh gốc và ảnh khôi phục. Hai nút YOLO chạy detection và segmentation riêng. Với ZIP chưa có nhãn, dùng **Khôi phục tập ảnh ZIP**; app chặn mAP khi `annotation_status=pending`, không biến ảnh chưa gán nhãn thành ảnh negative.
 
@@ -62,7 +62,7 @@ Benchmark đo tile đầu 256×256, warm-up đúng 5 lần, đo 50 lần và hi�
 | Blur | GoPro test từ archive do tác giả liên kết; một frame từ mỗi sequence đầu trong ba sequence khác nhau |
 | Low-light | Ba ảnh trong `data/eval/low` của RetinexNet tác giả; repo subset không có ảnh sạch kèm theo |
 
-Danh sách, nguồn từng file, SHA-256, seed và phạm vi thử nằm trong [manifest](data/pilot/manifest.json). Có 12 cặp ảnh sạch kèm theo; ảnh sạch không phải nhãn object. Quy ước PNG noise là pilot cho mobile, chưa khẳng định trùng protocol float của bài báo.
+Danh sách, nguồn từng file, SHA-256, seed và phạm vi thử nằm trong `data/pilot/manifest.json`. Có 12 cặp ảnh sạch kèm theo; ảnh sạch không phải nhãn object. Quy ước PNG noise là pilot cho mobile, chưa khẳng định trùng protocol float của bài báo.
 
 Tải lại và đóng gói:
 
@@ -86,37 +86,29 @@ YOLO dùng Ultralytics 8.3.221, output raw normalized xywh, `nms=False`. `conver
 
 Các lỗi LayerNorm/offset/biên NATTEN của port cũ đã được sửa. Không dùng fixture/log cũ trong `convert/out/` làm bằng chứng chất lượng. Vẫn cần đối chiếu với CUDA NATTEN gốc và cấu hình huấn luyện tác giả trước khi khẳng định tái lập bài báo.
 
-## Bằng chứng
+## Giao diện và cách dùng
 
-- [Android 10: 5 test qua](docs/verification/android10-instrumentation.txt), gồm bốn kiểm tra thành phần và một test chạy sáu fixture của ba model thật.
-- [Sai số model trên Android 10](docs/verification/android10-real-model-parity.json).
-- [Ảnh khôi phục thật](docs/verification/android10-rain100l-restoration.png), [detection](docs/verification/android10-rain100l-detection.png), [segmentation](docs/verification/android10-rain100l-segmentation.png) qua giao diện app; một ảnh Rain100L, chưa phải kết quả15 ảnh/mAP.
-- [Hash và kích thước ba model](docs/verification/model-artifacts.json).
-- [Build Android](docs/verification/android-build.txt), 7 Java unit tests qua, lint 0 errors; [3 Python tests qua](docs/verification/python-tests.txt).
-- Ba báo cáo conversion trong `docs/verification/` giữ sai số, hash checkpoint và phạm vi chưa đánh giá mAP.
+- **Khôi phục**: chọn ảnh, bấm **Bắt đầu khôi phục**, xem ảnh trước/sau và lưu kết quả. Nút bắt đầu nằm cố định ở cuối màn hình; khi xong app cuộn đến ảnh kết quả.
+- **Đánh giá**: tìm và khoanh vật thể, tô vùng từng vật thể, chấm điểm bộ ảnh có đáp án đúng, hoặc đo tốc độ chuyên sâu.
+- **Thiết lập**: cài công cụ khôi phục và hai công cụ nhận diện từ tệp model.
 
-Các kiểm tra này không chứng minh mAP tăng hoặc hiệu năng điện thoại. Chi tiết còn thiếu, nguồn giấy tờ và protocol tại [implementation-status.md](docs/implementation-status.md).
+Tác vụ nặng có nút **Dừng xử lý**, thời gian đã chờ và tiến độ từng lượt. Phép đo 5 lần chạy thử + 50 lần đo cần xác nhận trước khi chạy; dừng giữa chừng không tạo kết quả benchmark hoàn chỉnh. Ảnh và báo cáo của phiên gần nhất được lưu trên thiết bị để mở lại sau khi khởi động app.
 
-Ảnh đơn không cần ZIP: sau khi chọn ảnh, dùng **3. Khôi phục ảnh này bằng CPU**. App hiện model/ảnh đã nạp và tiến độ từng tile ở đầu màn hình. Nút YOLO chỉ bật sau khi có ảnh khôi phục; nút mAP chỉ bật khi ZIP có nhãn đúng loại và model tương ứng đã nạp. Kiểm tra nhánh ảnh đơn và nhãn bbox/mask đã qua6 tests trong `docs/verification/android10-ui-readiness-tests.txt`.
+Trên máy ảo, khôi phục có thể kéo dài nhiều phút. Launcher tắt Vulkan của máy ảo; cấu hình hiển thị này không chứng minh khả năng chạy LiteRT trên GPU điện thoại. Nếu cửa sổ ghi “leave trackball mode”, thoát chế độ đó bằng ⌘T trên máy Mac đã kiểm tra.
 
-Kiểm tra lại ngày 25/11/2026 trên máy ảo Android 10: ảnh Rain100L 481×321 đã chạy đủ 4 tile, giữ nguyên kích thước và bật nút YOLO sau khi xong. Thời gian toàn bộ thao tác CPU lần này là 307,3 giây; đây là một lần khôi phục ảnh, chưa phải phép đo warm-up 5 / chạy 50. Xem [log tiến độ](docs/verification/android10-ui-smoke-current.txt) và [trạng thái hoàn tất](docs/verification/android10-ui-restored.png).
+![Ảnh kết quả trong app](docs/verification/android-visible-result.png)
 
-Đã chạy tiếp detection và segmentation độc lập trên ảnh trước/sau trong bản giao diện đã sửa: [log YOLO](docs/verification/android10-ui-yolo-current.txt), [ảnh khôi phục](docs/verification/android10-ui-restored-result.png), [trạng thái detection](docs/verification/android10-ui-detection-status.png), [segmentation](docs/verification/android10-ui-segmentation-result.png). Các nút mAP vẫn bị khóa khi chưa có nhãn chuẩn.
+## Kiểm chứng
 
-Nếu máy ảo giữ khung hình cũ dù thao tác vẫn chạy, nhấn nút Power của cửa sổ emulator để tắt rồi bật màn hình. Đã dùng cách này để làm mới hiển thị khi kiểm tra segmentation; không cần chạy lại khôi phục.
+Xem [danh mục bằng chứng](docs/verification/README.md) để biết từng báo cáo chứng minh điều gì và giới hạn tương ứng. Thư mục này giữ các báo cáo chuyển đổi, sai số trên Android, kiểm thử thành phần, ảnh trước/sau và kiểm thử dừng model thật.
 
-Launcher đã thêm `-feature -Vulkan` cho máy ảo của dự án theo [tùy chọn của Android Emulator](https://developer.android.com/studio/run/emulator-troubleshooting). Sau khi khởi động lại, đã nạp lại ảnh và xác nhận khung hình thay đổi khi cuộn; bằng chứng tại [kiểm tra hiển thị](docs/verification/android10-emulator-display-check.json). Đây là cấu hình hiển thị máy ảo, không xác nhận khả năng chạy LiteRT trên GPU điện thoại.
+Các kiểm tra hiện có **chưa chứng minh mAP tăng, hiệu năng GPU điện thoại hoặc chất lượng đủ năm tác vụ**. Xem [trạng thái triển khai](docs/implementation-status.md) cho protocol và công việc còn thiếu.
 
+## Cấu trúc mã nguồn
 
-Giao diện DSwinIR Studio được tổ chức thành ba mục: **Khôi phục** (chọn ảnh, chạy CPU/GPU, so sánh trước/sau, xuất kết quả), **Đánh giá** (YOLO, dataset/mAP và benchmark), **Thiết lập** (nhập ba model). Giao diện dùng nền sáng, thẻ bo góc, tiêu đề xanh đậm và nút xanh ngọc; trạng thái xử lý có thanh tiến độ khi đang chạy. Sau khi xem YOLO, app chuyển về mục Khôi phục để hiển thị ảnh trước/sau.
+- `android/`: app, Gradle wrapper và kiểm thử Android.
+- `convert/`: chuẩn bị trọng số, chuyển TensorFlow/TFLite, chuyển YOLO và notebook Colab.
+- `tools/`: chạy máy ảo, chuẩn bị ảnh thử, đóng gói và kiểm chứng.
+- `model.py`, `natten_pure.py`, `validate_model.py`, `tests/`: bản port PyTorch và kiểm tra toán học.
 
-Ảnh giao diện: [Khôi phục](docs/verification/ui-studio-restore.png), [Đánh giá](docs/verification/ui-studio-evaluate.png), [Thiết lập](docs/verification/ui-studio-models.png). Bản giao diện này đã build, qua unit tests và lint 0 errors; 6/6 kiểm thử Android 10 qua trong `docs/verification/android-ui-redesign-tests.txt`. Không chạy lại benchmark hoặc model parity vì phần tính toán không đổi.
-
-
-Câu chữ giao diện đã được đổi sang tiếng Việt phổ thông: chọn ảnh, khôi phục ảnh, khoanh vật thể và tô vùng vật thể. Năm loại ảnh được ghi bằng tiếng Việt; mã tác vụ trong báo cáo vẫn giữ nguyên. Phần đánh giá giải thích đáp án đúng và hiển thị điểm trước/sau thay cho JSON thô. CPU/GPU được giải thích là bộ xử lý chính/bộ xử lý đồ họa; số liệu chi tiết vẫn nằm trong báo cáo xuất ra. Bản sửa đã build, chạy unit tests và lint (log `docs/verification/android-wording-build.txt`).
-
-
-Sửa luồng xem kết quả: nút “Bắt đầu khôi phục” nằm cố định ở cuối màn hình Khôi phục; lúc chạy có bộ đếm thời gian chờ và giữ màn hình sáng. Khi xong, app cuộn đến ảnh sau khôi phục. Ảnh đầu vào, đầu ra và báo cáo của phiên gần nhất được lưu trong bộ nhớ riêng để mở lại sau khi khởi động app. Lần chạy người dùng báo không thấy kết quả thực tế đã hoàn tất: CPU, 481×321, 926586,494 ms (một lần khôi phục toàn ảnh, không phải benchmark 5+50). Kết quả gốc đã xuất ra `docs/verification/user-restoration-result.zip`.
-
-
-Tác vụ xử lý và phép đo dài có nút **Dừng xử lý**. Phép đo 5 lần chạy thử + 50 lần đo có hộp giải thích trước khi bắt đầu và báo số lần đang chạy. Khi dừng, dữ liệu đo chưa đủ không được công bố thành kết quả; ảnh/báo cáo đã lưu được giữ nguyên. LiteRT bật cơ chế hủy inference; giao diện không đóng interpreter khi nó đang chạy. Số luồng CPU hiện là `max(1, min(4, số lõi khả dụng - 1))` cho cả DSwinIR và YOLO; máy ảo 2 lõi dùng 1 luồng. Báo cáo benchmark ghi số luồng thực tế, không so trực tiếp với các lần đo cũ dùng 4 luồng.
+Các nhánh chuyển đổi DSwinIR qua ONNX/TorchScript cũ, demo YOLO đếm vật thể và ảnh/log trùng đã được loại khỏi Git. Trên máy phát triển, bản gốc nằm trong `.local-archive/` (được ignore), có danh sách tệp và SHA-256 để khôi phục. Hai script ONNX của YOLO vẫn là một phần của luồng chuyển đổi hiện tại.

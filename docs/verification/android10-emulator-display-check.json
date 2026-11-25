@@ -1,8 +1,0 @@
-{
-  "date": "2026-11-25",
-  "gpu": "swiftshader_indirect",
-  "guest_vulkan": false,
-  "frame_changed_after_scroll": true,
-  "top_sha256": "657d65e2d8659420db2b9ccf4baed7ceca53c63de44cc6d36ed516e956d3b85f",
-  "bottom_sha256": "a7c6cce5502959f6decacf05e532f07069bbd3c4fcfdd7b26f901c906e3d7456"
-}

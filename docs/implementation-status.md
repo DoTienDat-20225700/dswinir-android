@@ -1,6 +1,6 @@
 # DSwinIR trên Android — trạng thái và protocol
 
-Ngày kiểm tra: 23/11/2026. Đây là mã triển khai và công cụ kiểm chứng; chưa phải báo cáo thí nghiệm hoàn tất.
+Kiểm chứng model: 23/11/2026; cập nhật luồng ứng dụng và tài liệu: 25/11/2026. Đây là mã triển khai và công cụ kiểm chứng; chưa phải báo cáo thí nghiệm hoàn tất.
 
 ## Xác định đúng bài và checkpoint
 
@@ -41,11 +41,11 @@ Nhập file TFLite bằng Storage Access Framework, chọn ảnh, chọn suy tho
 
 CPU/GPU delegate được tạo, gọi và hủy trên cùng worker thread theo [hướng dẫn Google](https://developers.google.com/edge/litert/android/gpu). GPU FP32 không cho phép precision loss. GPU có thể không hỗ trợ một số op và chạy xen CPU; [tài liệu GPU](https://developers.google.com/edge/litert/performance/gpu) nêu rõ successful initialization không đảm bảo toàn bộ graph trên GPU.
 
-Benchmark: tile đầu tiên của ảnh, encode sẵn; warm-up đúng 5 lần; đo 50 lần `Interpreter.run` đồng bộ, gồm output copy, trung bình và toàn bộ 50 samples. Init, encode, ghép ảnh không nằm trong số ms/tile. Thời gian restore cả ảnh gồm khởi tạo được báo riêng. CPU DSwinIR 4 threads, XNNPACK tắt. Graph đã tạo 353 partitions với XNNPACK và làm Android10 emulator2GB kill tiến trình ở khoảng1.35GB PSS; tắt XNNPACK giúp dùng chung arena và đã qua kiểm chứng model thật. GPU cũng tắt XNNPACK. YOLO vẫn dùng XNNPACK riêng. Nếu GPU attempt lỗi, nút restore GPU tự fallback CPU và ghi lỗi; benchmark CPU riêng vẫn có số đo để đối chiếu.
+Benchmark: tile đầu tiên của ảnh, encode sẵn; warm-up đúng 5 lần; đo 50 lần `Interpreter.run` đồng bộ, gồm output copy, trung bình và toàn bộ 50 samples. Init, encode, ghép ảnh không nằm trong số ms/tile. Thời gian restore cả ảnh gồm khởi tạo được báo riêng. CPU dùng `max(1,min(4,availableProcessors-1))` luồng (máy ảo2 lõi dùng1); DSwinIR tắt XNNPACK. Graph đã tạo 353 partitions với XNNPACK và làm Android10 emulator2GB kill tiến trình ở khoảng1.35GB PSS; tắt XNNPACK giúp dùng chung arena và đã qua kiểm chứng model thật. GPU cũng tắt XNNPACK. YOLO vẫn dùng XNNPACK riêng. Nếu GPU attempt lỗi, nút restore GPU tự fallback CPU và ghi lỗi; benchmark CPU riêng vẫn có số đo để đối chiếu.
 
 Mức phân bổ lấy từ log runtime **của tiến trình app, trong khoảng benchmark đó**. `FULL_GPU`, `PARTIAL_GPU`, `CPU_ONLY` chỉ hiện khi log cung cấp bằng chứng phù hợp; nếu log không có thông tin sẽ hiện `UNKNOWN_GPU_COVERAGE`. Không coi “khởi tạo GPU thành công” là “full GPU”. Có đọc số toán tử từ FlatBuffer một subgraph để đối chiếu log `Replacing N node(s)`; model nhiều subgraph bị từ chối. Chưa có native execution-plan inspector; runtime không phát count log vẫn cần benchmark binary/profiling thêm. Không thể ép mọi điện thoại xuất hiện đủ ba tình huống với cùng một graph; trường hợp không xảy ra phải báo N/A, không bịa thời gian.
 
-Xuất ZIP chứa JSON và ảnh PNG phục hồi kích thước gốc. Đây là bản lab; chưa tối ưu peak RAM cho ảnh lớn/đánh giá segmentation nhiều mẫu, chưa có cancel/resume khi tiến trình bị Android hủy.
+Xuất ZIP chứa JSON và ảnh PNG phục hồi kích thước gốc. Đây là bản lab; chưa tối ưu peak RAM cho ảnh lớn/đánh giá segmentation nhiều mẫu, có thể dừng tác vụ; chưa tiếp tục được phép đo dang dở sau khi tiến trình bị Android hủy.
 
 ## YOLO và mAP
 
@@ -72,7 +72,7 @@ python3 tools/pack_testset.py dataset/manifest.json --out testset.zip --require-
 
 App restore CPU mỗi ảnh, chạy YOLO trước và sau độc lập theo nút detection/segmentation. mAP50 và mAP50:95 theo 101 recall points, confidence .001, class-aware NMS .7, tối đa300 detections/ảnh, trung bình trên class có GT. Mask IoU dùng raster instance mask, không bbox IoU. Báo delta âm nếu kết quả xấu hơn; không có giả định restoration chắc chắn tăng mAP. Đây là protocol subset được mô tả rõ, **không phải toàn bộ COCOeval** (thiếu crowd/ignore/area/maxDets slicing). Cần dùng cùng tập ảnh, nhãn và tham số cho before/after. Bộ vài ảnh chỉ là pilot, không đủ để khẳng định hiệu quả tổng quát.
 
-`yolo_eval.py` cũ vẫn là demo synthetic-rain/count-confidence, **không phải công cụ mAP của đề tài**. Không dùng kết quả demo đó thay cho mAP.
+Demo synthetic-rain/count-confidence cũ đã được lưu ngoài Git trong `.local-archive/`; không dùng demo này thay cho công cụ mAP của đề tài.
 
 ## Điều kiện còn thiếu để hoàn thành đề tài
 
@@ -96,25 +96,14 @@ DSwinIR FP32 có input/output NHWC[1,256,256,3],221593464 bytes; max abs so vớ
 
 `data/pilot/manifest.json` lưu15 ảnh thử chưa gán nhãn: CBSD68 màu sigma25 PNG(seed42-44), Rain100L test, SOTS outdoor test, GoPro test, LOL tác giả eval subset. App hỗ trợ ZIP chưa gán nhãn để khôi phục, nhưng chặn mAP khi pending. `annotations: []` chỉ dành cho ảnh đã kiểm chứng không có object; không dùng cho ảnh chưa gán nhãn. `tools/download_pilot.py` không tải train RainTrainL; GoPro/SOTS chỉ đọc member được chọn bằng HTTP Range.
 
-## Kiểm tra giao diện với ảnh test thật
+## Kiểm chứng giao diện và khả năng dừng
 
-Ảnh Rain100L rain-001.png (481×321) đã được chọn qua Android file picker và khôi phục bằng nút CPU trong app Android10. App chia4 tile, ghép lại đúng481×321 và hiển thị trước/sau. Thời gian end-to-end của lần này143829.737ms trên emulator x86_64; không phải benchmark warm-up5 +50 và không đại diện điện thoại. Bằng chứng: `verification/android10-rain100l-ui.json` và `verification/android10-rain100l-restoration.png`. Chưa chạy đủ15 ảnh trên điện thoại hay đánh giá mAP.
+Ảnh Rain100L 481×321 đã được khôi phục trong app bằng 4 tile và giữ kích thước gốc. Lần đầu ghi 143829,737 ms; lần kiểm tra sau ghi 307,3 giây; một lần khác ghi 926586,494 ms. Đây là các lần khôi phục toàn ảnh trên máy ảo với cấu hình tại thời điểm chạy, không phải trung bình 5+50 và không đại diện hiệu năng điện thoại. Các nguồn số liệu nằm trong [danh mục kiểm chứng](verification/README.md).
 
-Hai nút YOLO được kiểm tra qua giao diện trên cùng ảnh Rain100L trước/sau; ảnh detection lưu tại `verification/android10-rain100l-detection.png`. Box/confidence ở đây là kết quả xem trước, không được diễn giải thành mAP.
+Detection và segmentation được chạy độc lập trên cùng cặp ảnh trước/sau. Box, confidence và mask trong ảnh minh họa không phải mAP. PSNR RGB của một mẫu Rain100L là25,97 →36,74 dB; chỉ là sanity của một mẫu, không phải trung bình bài báo.
 
-Segmentation cũng đã chạy riêng qua nút app trên cùng cặp ảnh; mask/bbox được hiển thị trong `verification/android10-rain100l-segmentation.png`. Không có nhãn kiểm chứng để tính mask mAP, nên không báo delta mAP từ hình minh chứng.
+Giao diện hiện dùng câu chữ tiếng Việt, nút bắt đầu cố định, thời gian chờ, tự cuộn đến ảnh sau và lưu phiên gần nhất. Khi app chạy phép đo dài, đã quan sát CPU176%, khoảng1GB RAM trên máy ảo2 lõi; Android không ghi nhận ANR. Bản sửa có nút Dừng xử lý, bật LiteRT cancellable inference, hiển thị từng lượt và nhắc trước phép đo dài.
 
-ZIP do app xuất đã được tải lại và kiểm tra CRC, gồm report.json và hai PNG481×321. Kiểm tra pixel RGB của một ảnh Rain100L này so với clean reference cho PSNR trước25.97dB, sau36.74dB. Đây chỉ là sanity của một mẫu mobile/tiled, không phải mAP hoặc trung bình benchmark của bài báo. Artifact nằm trong verification/rain100l-example/.
+Kiểm thử trên DSwinIR thật đã hủy native CPU warm-up đầu tiên, bật lại các nút và giữ nguyên byte của ảnh/báo cáo đã lưu. Đây không phải benchmark5+50 hoàn chỉnh. Số luồng CPU hiện được ghi trong báo cáo; không so trực tiếp với các lần kiểm tra lịch sử dùng4 luồng. Tác vụ đánh giá mới vô hiệu hóa báo cáo cũ trước khi thay các tệp đầu ra để tránh xuất nhầm báo cáo với ảnh xử lý dở.
 
-## Sửa điều kiện thao tác ảnh đơn
-
-Ảnh đơn chỉ cần DSwinIR và ảnh input để khôi phục; không cần ZIP. Giao diện hiện trạng thái model/ảnh đã nạp và hướng dẫn bước tiếp theo ở đầu màn hình. Khôi phục báo tiến độ từng tile, nút YOLO chỉ bật khi có ảnh khôi phục và model tương ứng. Hai nút mAP chỉ bật với ZIP có nhãn đúng loại (bbox/mask); chọn một ảnh hoặc ZIPpending không bật mAP. Nhánh ảnh đơn và phân biệt nhãn bbox/mask được kiểm thử trực tiếp trên Android10 trong android10-ui-readiness-tests.txt (6 tests PASS).
-
-Ngày 25/11/2026, kiểm tra lại toàn bộ đường đi chọn ảnh → khôi phục CPU với model thật trên máy ảo API29: ảnh Rain100L 481×321 được chia 4 tile, tiến độ lần lượt 1/4 đến 4/4, ảnh đầu ra giữ nguyên kích thước và nút YOLO bật sau khi hoàn tất. Một lần khôi phục mất 307,3 giây cho toàn bộ thao tác; không dùng số này thay cho trung bình 50 lần inference. Log tại `verification/android10-ui-smoke-current.txt`, ảnh màn hình trạng thái tại `verification/android10-ui-restored.png`.
-
-Sau khôi phục, đã chạy hai thao tác YOLO detection và segmentation độc lập cho ảnh trước/sau trong cùng phiên app. Log tại `verification/android10-ui-yolo-current.txt`; ảnh màn hình `android10-ui-restored-result.png`, `android10-ui-detection-status.png`, `android10-ui-segmentation-result.png` trong thư mục `verification/`. Không nhập ZIP và không tính mAP trong kiểm tra này.
-
-Quan sát thêm lỗi máy ảo giữ khung hình cũ trong khi cây UI vẫn cập nhật. Tắt/bật màn hình đã làm mới được khung hình segmentation và lưu đúng mask. Launcher sau đó thêm `-feature -Vulkan`, khởi động lại máy ảo, nạp lại ảnh và kiểm tra khung hình thay đổi khi cuộn (PASS; `verification/android10-emulator-display-check.json`). Chưa kiểm tra độ ổn định dài hạn của cấu hình hiển thị mới; không dùng kiểm tra này làm bằng chứng GPU delegate hoặc benchmark5+50.
-
-
-Sửa tình trạng không thao tác khi đo tốc độ: đã quan sát app chạy phép đo trên máy ảo2 lõi, CPU176%, khoảng1GB RAM, Android không ghi nhận ANR. Bản mới có nút Dừng xử lý, LiteRT cancellable inference, tiến độ từng lượt và xác nhận trước phép đo dài. Luồng CPU là max(1,min(4,availableProcessors-1)); máy ảo2 lõi dùng1 luồng. Báo cáo ghi số luồng thực tế. Kiểm thử trên model DSwinIR thật đã hủy lần native CPU warm-up đầu tiên, trả lại các nút và giữ nguyên byte của ảnh/báo cáo đã lưu; xem verification/android-cancel-result.json và android-cancel-smoke.txt. Đây không phải kết quả benchmark5+50 hoàn chỉnh. Báo cáo của tập ảnh cũ bị vô hiệu hóa trước khi thay tệp đầu ra để tránh xuất nhầm kết quả khi tác vụ mới bị dừng.
+Ảnh/log giao diện qua các lần chỉnh sửa và script chuyển đổi thử nghiệm đã được chuyển vào `.local-archive/` trên máy phát triển, không nằm trong repository public. Chỉ giữ các bằng chứng chính theo [verification/README.md](verification/README.md).
