@@ -74,6 +74,7 @@ public final class MainActivity extends Activity {
     private boolean busy, stoppable, isErrorState;
     private volatile boolean cancelRequested;
     private volatile Restorer activeRestorer;
+    private volatile String progressSummary = "Đang xử lý";
     private int activePage = 0;
     private int selectedTaskIndex = 1; // Default to derain (matches bundled Rain100L model)
     private long jobStarted;
@@ -82,7 +83,7 @@ public final class MainActivity extends Activity {
     private TextView[] modelStatusBadges = new TextView[3];
     private TextView[] modelMetaLabels = new TextView[3];
     private View statusDot;
-    private ProgressBar progress;
+    private ProgressBar progress, bottomProgress;
     private ScrollView workspace;
     private LinearLayout actionBar, inspectorRow, evaluationResultsHost, benchmarkResultsHost;
     private Button restoreAction, cancelAction;
@@ -98,8 +99,7 @@ public final class MainActivity extends Activity {
         public void run() {
             if (!busy)
                 return;
-            long sec = (SystemClock.elapsedRealtime() - jobStarted) / 1000;
-            actionHint.setText((cancelRequested ? "Đang dừng · " : "Đang xử lý · ") + sec + " giây");
+            updateBusyHint();
             ticker.postDelayed(this, 1000);
         }
     };
@@ -407,7 +407,7 @@ public final class MainActivity extends Activity {
                 "Chạy hàng loạt trên tệp ZIP. Chấm điểm mAP yêu cầu bộ ảnh đã có nhãn vị trí hoặc vùng vật thể.");
         datasetStatusPill = StudioWidgets.badge(this, theme, "Chưa chọn bộ ảnh", theme.surfaceSubtle, theme.muted);
         LinearLayout.LayoutParams dsLp = new LinearLayout.LayoutParams(-2, -2);
-        dsLp.setMargins(0, theme.dp(4), 0, theme.dp(6));
+        dsLp.setMargins(0, theme.dp(4), 0, theme.dp(8));
         batchSection.addView(datasetStatusPill, dsLp);
 
         addButton(batchSection, "Chọn bộ ảnh kiểm tra (.zip)", 0, () -> pick(DATASET, "*/*"), () -> true);
@@ -571,7 +571,17 @@ public final class MainActivity extends Activity {
         bar.setBackgroundColor(theme.surface);
         bar.setPadding(theme.dp(16), theme.dp(10), theme.dp(16), theme.dp(12));
 
-        bar.addView(StudioWidgets.hairline(this, theme, 0, 8));
+        bar.addView(StudioWidgets.hairline(this, theme, 0, 6));
+
+        bottomProgress = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        bottomProgress.setIndeterminate(true);
+        bottomProgress.setIndeterminateTintList(ColorStateList.valueOf(theme.accent));
+        bottomProgress.setProgressTintList(ColorStateList.valueOf(theme.accent));
+        bottomProgress.setProgressBackgroundTintList(ColorStateList.valueOf(theme.hairline));
+        bottomProgress.setVisibility(View.GONE);
+        LinearLayout.LayoutParams bpLp = new LinearLayout.LayoutParams(-1, theme.dp(3));
+        bpLp.setMargins(0, 0, 0, theme.dp(6));
+        bar.addView(bottomProgress, bpLp);
 
         actionHint = theme.text(this, "Chọn ảnh để bắt đầu.", 12.5f, theme.muted, false);
         actionHint.setMaxLines(1);
@@ -721,6 +731,7 @@ public final class MainActivity extends Activity {
         refreshModelInventory();
 
         progress.setVisibility(busy ? View.VISIBLE : View.GONE);
+        bottomProgress.setVisibility(busy ? View.VISIBLE : View.GONE);
         cancelAction.setVisibility(busy && stoppable ? View.VISIBLE : View.GONE);
         cancelAction.setEnabled(!cancelRequested);
         restoreAction.setText(busy ? "Đang xử lý ảnh…" : "Bắt đầu khôi phục");
@@ -800,11 +811,28 @@ public final class MainActivity extends Activity {
         }
     }
 
+    private void updateBusyHint() {
+        long sec = (SystemClock.elapsedRealtime() - jobStarted) / 1000;
+        String prefix = cancelRequested ? "Đang dừng · " : "";
+        actionHint.setText(prefix + progressSummary + " · " + sec + " giây");
+    }
+
     private void show(String text) {
         isErrorState = false;
         runOnUiThread(() -> {
             statusText.setText(text);
             statusDot.setBackground(theme.rect(busy ? theme.accent : theme.teal, 999));
+        });
+    }
+
+    private void showProgress(String summary, String detailText) {
+        progressSummary = summary;
+        isErrorState = false;
+        runOnUiThread(() -> {
+            statusText.setText(detailText);
+            statusDot.setBackground(theme.rect(theme.accent, 999));
+            if (busy)
+                updateBusyHint();
         });
     }
 
@@ -818,12 +846,17 @@ public final class MainActivity extends Activity {
 
     private void setProgressValue(int done, int total) {
         runOnUiThread(() -> {
-            if (total <= 0) {
-                progress.setIndeterminate(true);
-            } else {
-                progress.setIndeterminate(false);
-                progress.setMax(total);
-                progress.setProgress(Math.max(0, Math.min(total, done)));
+            ProgressBar[] bars = { progress, bottomProgress };
+            for (ProgressBar bar : bars) {
+                if (bar == null)
+                    continue;
+                if (total <= 0) {
+                    bar.setIndeterminate(true);
+                } else {
+                    bar.setIndeterminate(false);
+                    bar.setMax(total);
+                    bar.setProgress(Math.max(0, Math.min(total, done)));
+                }
             }
         });
     }
@@ -853,6 +886,7 @@ public final class MainActivity extends Activity {
         cancelRequested = true;
         cancelAction.setEnabled(false);
         show("Đang dừng xử lý. Chờ phần tính toán hiện tại hoàn tất…");
+        updateBusyHint();
         Restorer engine = activeRestorer;
         if (engine != null)
             engine.cancel();
@@ -870,12 +904,17 @@ public final class MainActivity extends Activity {
         stoppable = allowStop;
         busy = true;
         isErrorState = false;
+        progressSummary = "Đang xử lý";
         jobStarted = SystemClock.elapsedRealtime();
         progress.setIndeterminate(true);
+        if (bottomProgress != null)
+            bottomProgress.setIndeterminate(true);
         refreshActions();
         ticker.removeCallbacks(tick);
         ticker.post(tick);
-        workspace.smoothScrollTo(0, 0);
+        if (activePage == 0) {
+            workspace.smoothScrollTo(0, 0);
+        }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         worker.execute(() -> {
             try {
@@ -964,6 +1003,8 @@ public final class MainActivity extends Activity {
                     if ((report.has("detection") || report.has("segmentation") || report.has("batch_restoration"))
                             && images.isDirectory()) {
                         for (File f : Objects.requireNonNull(images.listFiles())) {
+                            if (f.getName().startsWith("."))
+                                continue;
                             zip.putNextEntry(new ZipEntry("evaluation/" + f.getName()));
                             java.nio.file.Files.copy(f.toPath(), zip);
                             zip.closeEntry();
@@ -1094,12 +1135,16 @@ public final class MainActivity extends Activity {
             long start = SystemClock.elapsedRealtimeNanos();
             Restorer.Progress onProgress = (done, total) -> {
                 setProgressValue(done, total);
-                show("Đang khôi phục · " + (done == total ? "hoàn tất " + done : "đang xử lý " + (done + 1))
-                        + "/" + total + " phần ảnh (256×256)");
+                String summary = "Tile " + (done == total ? done : (done + 1)) + "/" + total;
+                showProgress(summary,
+                        "Đang khôi phục · " + (done == total ? "hoàn tất " + done : "đang xử lý " + (done + 1))
+                                + "/" + total + " phần ảnh (256×256)");
             };
             try (Restorer engine = openRestorer(restorationModel, gpu)) {
                 restored = engine.restore(original, onProgress);
-            } catch (RuntimeException | LinkageError e) {
+            } catch (RuntimeException | Error e) {
+                if (e instanceof ThreadDeath)
+                    throw e;
                 checkCancelled();
                 if (e instanceof CancellationException)
                     throw e;
@@ -1108,6 +1153,7 @@ public final class MainActivity extends Activity {
                 error = e.toString();
                 requested = "CPU_FALLBACK";
                 show("GPU không hỗ trợ, tự động chuyển sang CPU…");
+                System.gc();
                 try (Restorer engine = openRestorer(restorationModel, false)) {
                     restored = engine.restore(original, onProgress);
                 }
@@ -1161,9 +1207,10 @@ public final class MainActivity extends Activity {
         try (Restorer engine = openRestorer(restorationModel, gpu)) {
             double[] samples = engine.benchmark(original, (done, total) -> {
                 setProgressValue(done, total);
-                show("Đo " + (gpu ? "GPU" : "CPU") + " · "
-                        + (done < 5 ? "chạy thử " + (done + 1) + "/5"
-                                : done < 55 ? "đang đo " + (done - 4) + "/50" : "hoàn tất 50/50"));
+                String phase = done < 5 ? "chạy thử " + (done + 1) + "/5"
+                        : done < 55 ? "đang đo " + (done - 4) + "/50" : "hoàn tất 50/50";
+                showProgress((gpu ? "GPU" : "CPU") + " · " + phase,
+                        "Đo " + (gpu ? "GPU" : "CPU") + " · " + phase);
             });
             double sum = 0;
             JSONArray raw = new JSONArray();
@@ -1179,7 +1226,9 @@ public final class MainActivity extends Activity {
                     .put("gpu_log", logs);
         } catch (CancellationException e) {
             throw e;
-        } catch (RuntimeException | LinkageError e) {
+        } catch (RuntimeException | Error e) {
+            if (e instanceof ThreadDeath)
+                throw e;
             checkCancelled();
             value.put("status", "FAILED").put("error", e.toString())
                     .put("coverage", gpu ? "GPU_ATTEMPT_FAILED" : "CPU_FAILED");
@@ -1277,14 +1326,15 @@ public final class MainActivity extends Activity {
                     Yolo yolo = new Yolo(yoloFile, segment)) {
                 for (int i = 0; i < totalImages; i++) {
                     checkCancelled();
-                    setProgressValue(i, totalImages);
+                    final int idx = i;
                     JSONObject row = dataset.images.getJSONObject(i);
                     String name = row.getString("degradation"), id = row.getString("id");
                     JSONObject sample = new JSONObject(row.toString()).put("input_sha256",
                             sha(dataset.file(row.getString("input"))));
                     samples.put(sample);
-                    show("Đánh giá " + (i + 1) + "/" + totalImages + " · " + taskName(name)
-                            + " · " + (segment ? "tô vùng" : "khoanh vật thể"));
+                    String baseLabel = "Ảnh " + (i + 1) + "/" + totalImages + " · " + taskName(name);
+                    setProgressValue(i * 100, totalImages * 100);
+                    showProgress(baseLabel, "Đánh giá " + baseLabel + " · " + (segment ? "tô vùng" : "khoanh vật thể"));
                     File sourceFile = dataset.file(row.getString("input"));
                     BitmapFactory.Options bounds = new BitmapFactory.Options();
                     bounds.inJustDecodeBounds = true;
@@ -1304,7 +1354,13 @@ public final class MainActivity extends Activity {
                         List<Instance> bp = yolo.predict(source, id);
                         before.computeIfAbsent(name, k -> new ArrayList<>()).addAll(bp);
                         sample.put("before_predictions", predictions(bp));
-                        Bitmap result = engine.restore(source);
+                        Bitmap result = engine.restore(source, (done, total) -> {
+                            int pct = total > 0 ? (done * 100 / total) : 0;
+                            setProgressValue(idx * 100 + pct, totalImages * 100);
+                            String tileInfo = "tile " + Math.min(total, done + 1) + "/" + total;
+                            showProgress(baseLabel + " · " + tileInfo,
+                                    "Đánh giá " + baseLabel + " (" + tileInfo + ")");
+                        });
                         try {
                             List<Instance> ap = yolo.predict(result, id);
                             after.computeIfAbsent(name, k -> new ArrayList<>()).addAll(ap);
@@ -1322,7 +1378,7 @@ public final class MainActivity extends Activity {
                     counts.put(name, counts.getOrDefault(name, 0) + 1);
                 }
             }
-            setProgressValue(totalImages, totalImages);
+            setProgressValue(totalImages * 100, totalImages * 100);
             JSONObject metrics = new JSONObject();
             for (String name : new TreeSet<>(TestSet.TASKS)) {
                 if (!gt.containsKey(name) || gt.get(name).isEmpty()) {
@@ -1350,6 +1406,24 @@ public final class MainActivity extends Activity {
         });
     }
 
+    private String batchSignature(TestSet set, File model) throws Exception {
+        StringBuilder sb = new StringBuilder(sha(model)).append('|').append(set.images.length());
+        for (int i = 0; i < set.images.length(); i++) {
+            JSONObject row = set.images.getJSONObject(i);
+            sb.append('|').append(row.getString("id")).append(':').append(row.getString("input"));
+        }
+        return sb.toString();
+    }
+
+    private void writeCheckpoint(File file, String signature, JSONArray samples) {
+        try {
+            JSONObject cp = new JSONObject().put("signature", signature).put("samples", samples);
+            java.nio.file.Files.write(file.toPath(), cp.toString().getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            android.util.Log.w("DSwinIR", "Cannot save batch checkpoint", e);
+        }
+    }
+
     private void restoreBatch() {
         job(true, () -> {
             if (dataset == null)
@@ -1359,54 +1433,97 @@ public final class MainActivity extends Activity {
             report.remove("batch_restoration");
             File folder = new File(getFilesDir(), "evaluation-images");
             folder.mkdirs();
-            for (File f : Objects.requireNonNull(folder.listFiles()))
-                f.delete();
+            File checkpointFile = new File(folder, ".checkpoint.json");
+            String sig = batchSignature(dataset, restorationModel);
             JSONArray samples = new JSONArray();
-            int totalImages = dataset.images.length();
-            try (Restorer engine = openRestorer(restorationModel, false)) {
-                for (int i = 0; i < totalImages; i++) {
-                    checkCancelled();
-                    setProgressValue(i, totalImages);
-                    JSONObject row = dataset.images.getJSONObject(i);
-                    show("Khôi phục " + (i + 1) + "/" + totalImages + " · " + taskName(row.getString("degradation")));
-                    File input = dataset.file(row.getString("input"));
-                    BitmapFactory.Options bounds = new BitmapFactory.Options();
-                    bounds.inJustDecodeBounds = true;
-                    BitmapFactory.decodeFile(input.getPath(), bounds);
-                    if ((long) bounds.outWidth * bounds.outHeight > 24000000)
-                        throw new IOException("Ảnh >24 megapixel");
-                    Bitmap source = BitmapFactory.decodeFile(input.getPath());
-                    if (source == null)
-                        throw new IOException("Không đọc được ảnh test");
-                    try {
-                        long start = SystemClock.elapsedRealtimeNanos();
-                        Bitmap result = engine.restore(source);
-                        try {
-                            double elapsed = (SystemClock.elapsedRealtimeNanos() - start) / 1e6;
-                            String filename = String.format(Locale.US, "%04d-%s.png", i, row.getString("degradation"));
-                            try (OutputStream out = new FileOutputStream(new File(folder, filename))) {
-                                result.compress(Bitmap.CompressFormat.PNG, 100, out);
+            int startIndex = 0;
+            if (checkpointFile.isFile()) {
+                try {
+                    JSONObject saved = new JSONObject(new String(
+                            java.nio.file.Files.readAllBytes(checkpointFile.toPath()), StandardCharsets.UTF_8));
+                    if (sig.equals(saved.optString("signature"))) {
+                        JSONArray prev = saved.optJSONArray("samples");
+                        if (prev != null && prev.length() > 0 && prev.length() <= dataset.images.length()) {
+                            boolean allPresent = true;
+                            for (int k = 0; k < prev.length(); k++) {
+                                String outName = prev.getJSONObject(k).optString("output");
+                                if (outName.isEmpty() || !new File(folder, outName).isFile()) {
+                                    allPresent = false;
+                                    break;
+                                }
                             }
-                            samples.put(new JSONObject(row.toString())
-                                    .put("input_sha256", sha(input))
-                                    .put("output", filename)
-                                    .put("width", result.getWidth())
-                                    .put("height", result.getHeight())
-                                    .put("restore_ms", elapsed));
-                            if (i == totalImages - 1) {
-                                original = source.copy(Bitmap.Config.ARGB_8888, false);
-                                restored = result.copy(Bitmap.Config.ARGB_8888, false);
-                                runOnUiThread(() -> comparator.setImages(original, restored));
+                            if (allPresent) {
+                                samples = prev;
+                                startIndex = prev.length();
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {
+                    /* start fresh */ }
+            }
+            if (startIndex == 0) {
+                for (File f : Objects.requireNonNull(folder.listFiles()))
+                    f.delete();
+            }
+            int totalImages = dataset.images.length();
+            if (startIndex < totalImages) {
+                try (Restorer engine = openRestorer(restorationModel, false)) {
+                    for (int i = startIndex; i < totalImages; i++) {
+                        checkCancelled();
+                        final int idx = i;
+                        JSONObject row = dataset.images.getJSONObject(i);
+                        String deg = row.getString("degradation");
+                        String baseLabel = "Ảnh " + (i + 1) + "/" + totalImages + " · " + taskName(deg);
+                        setProgressValue(i * 100, totalImages * 100);
+                        showProgress(baseLabel,
+                                (startIndex > 0 && i == startIndex ? "Tiếp tục · " : "Khôi phục ") + baseLabel);
+                        File input = dataset.file(row.getString("input"));
+                        BitmapFactory.Options bounds = new BitmapFactory.Options();
+                        bounds.inJustDecodeBounds = true;
+                        BitmapFactory.decodeFile(input.getPath(), bounds);
+                        if ((long) bounds.outWidth * bounds.outHeight > 24000000)
+                            throw new IOException("Ảnh >24 megapixel");
+                        Bitmap source = BitmapFactory.decodeFile(input.getPath());
+                        if (source == null)
+                            throw new IOException("Không đọc được ảnh test");
+                        try {
+                            long start = SystemClock.elapsedRealtimeNanos();
+                            Bitmap result = engine.restore(source, (done, total) -> {
+                                int pct = total > 0 ? (done * 100 / total) : 0;
+                                setProgressValue(idx * 100 + pct, totalImages * 100);
+                                String tileInfo = "tile " + Math.min(total, done + 1) + "/" + total;
+                                showProgress(baseLabel + " · " + tileInfo,
+                                        "Khôi phục " + baseLabel + " (" + tileInfo + ")");
+                            });
+                            try {
+                                double elapsed = (SystemClock.elapsedRealtimeNanos() - start) / 1e6;
+                                String filename = String.format(Locale.US, "%04d-%s.png", i, deg);
+                                try (OutputStream out = new FileOutputStream(new File(folder, filename))) {
+                                    result.compress(Bitmap.CompressFormat.PNG, 100, out);
+                                }
+                                samples.put(new JSONObject(row.toString())
+                                        .put("input_sha256", sha(input))
+                                        .put("output", filename)
+                                        .put("width", result.getWidth())
+                                        .put("height", result.getHeight())
+                                        .put("restore_ms", elapsed));
+                                writeCheckpoint(checkpointFile, sig, samples);
+                                if (i == totalImages - 1) {
+                                    original = source.copy(Bitmap.Config.ARGB_8888, false);
+                                    restored = result.copy(Bitmap.Config.ARGB_8888, false);
+                                    runOnUiThread(() -> comparator.setImages(original, restored));
+                                }
+                            } finally {
+                                result.recycle();
                             }
                         } finally {
-                            result.recycle();
+                            source.recycle();
                         }
-                    } finally {
-                        source.recycle();
                     }
                 }
             }
-            setProgressValue(totalImages, totalImages);
+            checkpointFile.delete();
+            setProgressValue(totalImages * 100, totalImages * 100);
             report.put("batch_restoration", new JSONObject()
                     .put("model_sha256", sha(restorationModel))
                     .put("backend", "CPU")

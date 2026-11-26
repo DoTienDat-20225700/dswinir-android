@@ -23,6 +23,8 @@ with zipfile.ZipFile(archive) as z: z.extractall(root/'image')
 archive.unlink()
 PY
 fi
+TASK_CORES=${DSWINIR_EMU_CORES:-6}
+TASK_MEMORY=${DSWINIR_EMU_MEMORY:-4096}
 mkdir -p "$TASK_RUNTIME/avds/DSwinIR_API29.avd"
 cat > "$TASK_RUNTIME/avds/DSwinIR_API29.ini" <<EOF
 avd.ini.encoding=UTF-8
@@ -34,8 +36,8 @@ AvdId=DSwinIR_API29
 avd.ini.encoding=UTF-8
 abi.type=x86_64
 hw.cpu.arch=x86_64
-hw.cpu.ncore=2
-hw.ramSize=2048
+hw.cpu.ncore=$TASK_CORES
+hw.ramSize=$TASK_MEMORY
 hw.lcd.width=720
 hw.lcd.height=1280
 hw.lcd.density=320
@@ -54,4 +56,4 @@ export ANDROID_AVD_HOME="$TASK_RUNTIME/avds"
 export ANDROID_SDK_ROOT="$TASK_SDK"
 # Avoid the Vulkan presentation path on the Intel Mac verification runtime.
 # This controls emulator rendering; it does not enable a LiteRT GPU delegate.
-exec "$TASK_SDK/emulator/emulator" -avd DSwinIR_API29 -no-snapshot -no-audio ${TASK_WINDOW_FLAG:+$TASK_WINDOW_FLAG} -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -memory 2048 -cores 2
+exec "$TASK_SDK/emulator/emulator" -avd DSwinIR_API29 -no-snapshot -no-audio ${TASK_WINDOW_FLAG:+$TASK_WINDOW_FLAG} -no-boot-anim -gpu swiftshader_indirect -feature -Vulkan -memory "$TASK_MEMORY" -cores "$TASK_CORES"
